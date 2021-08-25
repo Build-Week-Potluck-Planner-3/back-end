@@ -25,7 +25,6 @@ const validateUser = async(req, res, next) => {//login
      } else {
          console.log(user)
         req.user = user;
-        return user
      }
  } catch (err){
      next({ message: `Oops ${err}`})
