@@ -24,7 +24,8 @@ const validateUser = async(req, res, next) => {//login
          next ({ status: 422, message: 'Invalid Credentials'})
      } else {
          console.log(user)
-        req.user = user;
+        req.user = user
+        next()
      }
  } catch (err){
      next({ message: `Oops ${err}`})
