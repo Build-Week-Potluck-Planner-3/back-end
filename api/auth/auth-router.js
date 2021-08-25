@@ -46,7 +46,7 @@ router.post('/login', validateUser, (req, res, next) => {
             token: token,
         });
     } else {
-        next({ status: 401, message: 'Invalid Credentials'})
+        next({ status: 401, message: 'Niet Breh'})
     }
     } catch(err) {
         next(err)
