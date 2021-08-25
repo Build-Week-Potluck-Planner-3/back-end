@@ -19,11 +19,11 @@ const newUserAvailable = async(req, res, next) => { //register
 
 const validateUser = async(req, res, next) => {//login 
  try {
-     const user = await findBy({username: req.body.username});
+     const [user] = await findBy({username: req.body.username});
      if(!user) {
          next ({ status: 422, message: 'Invalid Credentials'})
      } else {
-        req.user = user
+        req.user = user;
         next()
      }
  } catch (err){

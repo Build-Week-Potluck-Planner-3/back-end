@@ -36,23 +36,21 @@ router.post('/register', newUserAvailable, (req, res, next) => {
     }
 });
 
-    // Users.insertUser(user)
-    //     .then(newUser => {
-    //         res.status(201).json(newUser);
-    //     })
-    //     .catch(next(err))
-    // });
-
 router.post('/login', validateUser, (req, res, next) => {
+    try{
     if(bcrypt.compareSync(req.body.password, req.user.password)) {
         const token = buildToken(req.user)
-        res.status(200).json({
+        next({
+            status: 200,
             message: `${req.user.username} is back yo!`,
             token: token,
         });
     } else {
         next({ status: 401, message: 'Invalid Credentials'})
     }
-})
+    } catch(err) {
+        next(err)
+    }
+});
 
 module.exports = router
