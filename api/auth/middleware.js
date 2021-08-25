@@ -10,6 +10,7 @@ const newUserAvailable = async(req, res, next) => { //register
             next ({ status: 422, message: 'Username taken!'})
         } else {
             req.user = user
+            next()
         }
     } catch {
         next()
