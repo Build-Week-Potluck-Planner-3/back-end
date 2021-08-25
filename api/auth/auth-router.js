@@ -22,14 +22,26 @@ router.post('/register', newUserAvailable, (req, res, next) => {
     
      const rounds = process.env.BCRYPT_ROUNDS || 8;
      const hash = bcrypt.hashSync(user.password, rounds);
-    user.password = hash
+    user.password = hash;
 
-    Users.insertUser(user)
-        .then(newUser => {
-            res.status(201).json({ message: `Welcome ${newUser.username}`});
-        })
-        .catch(next({message: 'Failed to register you as a new user'}))
-    });
+    try {
+        if (user) {
+            Users.insertUser(user)
+            next({status: 201, message: `${user.username} created!`})
+        } else {
+            next({status:401, message: 'Error'})
+        }
+    } catch (err) {
+        next(err)
+    }
+});
+
+    // Users.insertUser(user)
+    //     .then(newUser => {
+    //         res.status(201).json(newUser);
+    //     })
+    //     .catch(next(err))
+    // });
 
 router.post('/login', validateUser, (req, res, next) => {
     if(bcrypt.compareSync(req.body.password, req.user.password)) {
@@ -43,4 +55,4 @@ router.post('/login', validateUser, (req, res, next) => {
     }
 })
 
-module.exports = router;
+module.exports = router
