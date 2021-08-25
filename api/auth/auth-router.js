@@ -28,8 +28,7 @@ router.post('/register', newUserAvailable, (req, res, next) => {
         .then(newUser => {
             res.status(201).json({ message: `Welcome ${newUser.username}`});
         })
-        .catch({message: 'Failed to register you as a new user'})
-
+        .catch(next({message: 'Failed to register you as a new user'}))
     });
 
 router.post('/login', validateUser, (req, res, next) => {
@@ -43,3 +42,5 @@ router.post('/login', validateUser, (req, res, next) => {
         next({ status: 401, message: 'Invalid Credentials'})
     }
 })
+
+module.exports = router;
