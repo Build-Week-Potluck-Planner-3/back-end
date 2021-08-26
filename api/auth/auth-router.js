@@ -44,7 +44,7 @@ router.post('/login', validateUser, (req, res, next) => {
         req.user.token = token
         next({
             status: 200,
-            message: `${token}`,
+            message: token,
             token: token,
             userData: req.user,
         });
