@@ -41,10 +41,12 @@ router.post('/login', validateUser, (req, res, next) => {
     try{
     if(bcrypt.compareSync(req.body.password, req.user.password)) {
         const token = buildToken(req.user)
+        req.user.token = token
         next({
             status: 200,
             message: `${req.user.username} is back yo! ${token}`,
-            token2: token,
+            token: token,
+            userData: req.user,
         });
     } else {
         next({ status: 401, message: 'Niet Breh'})
