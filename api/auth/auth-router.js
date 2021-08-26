@@ -43,7 +43,7 @@ router.post('/login', validateUser, (req, res, next) => {
         const token = buildToken(req.user)
         next({
             status: 200,
-            message: `${req.user.username} is back yo!`,
+            message: `${req.user.username} is back yo! ${token}`,
             token: token,
         });
     } else {
