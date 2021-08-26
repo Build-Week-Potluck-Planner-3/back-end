@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const router = require('express').Router();
+const jwt = require('jsonwebtoken')
 
 const Users = require('../users/user-model');
 
@@ -14,7 +15,7 @@ function buildToken(user) {
     const options = {
         expiresIn: '1d',
     }
-    return JWT_SECRET.substring(payload, JWT_SECRET, options)
+    return jwt.sign(payload, JWT_SECRET, options)
 }
 
 router.post('/register', newUserAvailable, (req, res, next) => {
