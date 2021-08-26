@@ -44,7 +44,7 @@ router.post('/login', validateUser, (req, res, next) => {
         next({
             status: 200,
             message: `${req.user.username} is back yo! ${token}`,
-            token: token,
+            token2: token,
         });
     } else {
         next({ status: 401, message: 'Niet Breh'})
