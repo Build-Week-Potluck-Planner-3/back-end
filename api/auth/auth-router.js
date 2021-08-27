@@ -42,11 +42,12 @@ router.post('/login', validateUser, (req, res, next) => {
     if(bcrypt.compareSync(req.body.password, req.user.password)) {
         const token = buildToken(req.user)
         req.user.token = token
+        req.session.user = user
         next({
             status: 200,
             message: token,
             token: token,
-            userData: req.user,
+            userData: req.user.token,
         });
     } else {
         next({ status: 401, message: 'Niet Breh'})
@@ -55,5 +56,19 @@ router.post('/login', validateUser, (req, res, next) => {
         next(err)
     }
 });
+
+router.get('logout', (req,res,next) => {
+    if(req.session.user) {
+        req.session.destroy(err => {
+            if(err) {
+                res.json({ message: "Yo can't leave ese!"})
+            } else {
+                res.json({ message: 'Ciao!' })
+            }
+        })
+    } else {
+        res.json({ message: "No session active, stranger"})
+    }
+})
 
 module.exports = router

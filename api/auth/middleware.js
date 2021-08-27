@@ -1,7 +1,7 @@
 // const { default: jwtDecode } = require('jwt-decode');
 // const { JWT_DECODE } = require('../secrets/index');
 // const jwt = require('jsonwebtoken');
-const { findBy } = require('../users/user-model');
+const { findBy, findById } = require('../users/user-model');
 
 const newUserAvailable = async(req, res, next) => { //register
     try {
