@@ -55,17 +55,17 @@ router.post('/login', validateUser, (req, res, next) => {
     }
 });
 
-router.get('logout', (req,res,next) => {
+router.get('/logout', (req, res, next) => {
     if(req.session.user) {
         req.session.destroy(err => {
             if(err) {
-                res.json({ message: "Yo can't leave ese!"})
+                res.json({ status: 400, message: "Yo can't leave ese!"})
             } else {
-                res.json({ message: 'Ciao!' })
+                res.json({ status: 400, message: 'Ciao!' })
             }
         })
     } else {
-        res.json({ message: "No session active, stranger"})
+        res.json({ status: 400, message: "No session active, stranger"})
     }
 })
 
