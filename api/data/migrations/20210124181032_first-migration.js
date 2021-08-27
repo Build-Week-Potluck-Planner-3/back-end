@@ -6,8 +6,18 @@ exports.up = async (knex) => {
       users.string('password', 200).notNullable()
       users.timestamps(false, true)
     })
+  .createTable("potlucks", (potlucks) => {
+    potlucks.increments();
+    potlucks.string("title", 128).notNullable().unique();
+    potlucks.date("date").notNullable().unique();
+    potlucks.time("time").notNullable().unique();
+    potlucks.string("location", 128).notNullable().unique();
+    potlucks.timestamps(false, true)
+  })
 }
 
 exports.down = async (knex) => {
-  await knex.schema.dropTableIfExists('users')
+  await knex.schema
+    .dropTableIfExists('potlucks')
+    .dropTableIfExists('users');
 }
