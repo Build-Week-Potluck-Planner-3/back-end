@@ -41,7 +41,7 @@ router.post('/login', validateUser, (req, res, next) => {
     try{
     if(bcrypt.compareSync(req.body.password, req.user.password)) {
         const token = buildToken(req.user)
-        req.session.user = user
+        req.session.user = req.user
         next({
             status: 200,
             message: token,
