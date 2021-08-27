@@ -61,7 +61,7 @@ router.get('/logout', (req, res, next) => {
             if(err) {
                 res.json({ status: 400, message: "Yo can't leave ese!"})
             } else {
-                res.json({ status: 400, message: 'Ciao!' })
+                res.json({ status: 200, message: 'Ciao!' })
             }
         })
     } else {
